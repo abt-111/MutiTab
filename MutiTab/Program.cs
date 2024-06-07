@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading.Channels;
-
-class MainClass
+﻿class MainClass
 {
     public static void Main(string[] args)
     {
@@ -12,7 +9,7 @@ class MainClass
         // Saisie de l'utilisateur
         for (int i = 0; i < irregularTab.Length; i++)
         {
-            Console.Write("Entrez une valeur pour taille de la case n°" + i + " entre 1 et 3 (please T_T) : ");
+            Console.Write("Entrez une valeur pour taille de la case n°" + i + " : ");
             taille = Convert.ToInt32(Console.ReadLine());
             irregularTab[i] = new int[taille];
         }
@@ -20,14 +17,9 @@ class MainClass
         Console.WriteLine();
 
         // Insertion de uniformTab dans irregularTab
-        for (int i = 0; i < irregularTab.Length; i++)
-        {
-            for (int j = 0; j < irregularTab[i].Length; j++)
-            {
-                irregularTab[i][j] = uniformTab[i][j + (uniformTab[0].Length - irregularTab[i].Length)];
-            }
-        }
+        TabInsert(irregularTab, uniformTab);
 
+        // Affichage des tableaux
         TabDisplay(uniformTab, "uniforme");
         TabDisplay(irregularTab, "irrégulier");
     }
@@ -51,5 +43,19 @@ class MainClass
         }
 
         Console.WriteLine(chaine);
+    }
+
+    public static void TabInsert(int[][] irregularTab, int[][] uniformTab)
+    {
+        int indexMinus = uniformTab[0].Length;
+
+        for (int i = 0; i < irregularTab.Length; i++)
+        {
+            for (int j = 0; j < indexMinus; j++)
+            {
+                irregularTab[i][j] = uniformTab[i][j + (uniformTab[0].Length - indexMinus)];
+            }
+            indexMinus--;
+        }
     }
 }
